@@ -59,10 +59,10 @@ For the entity codes:
 
 > _Blavatnik Index of Public Administration (2024) Reference list of
 > geographic entities, names and codes. Blavatnik School of Government, 
-> University of Oxford, https://www.github.com/bipa/bipa-cartography._
+> University of Oxford, https://github.com/blavatnik-index/bipa2024_cartography._
 
 For the cartography:
 
 > _Blavatnik Index of Public Administration (2024) Base map of countries and
 > territories. Blavatnik School of Government, University of Oxford,
-> https://www.github.com/bipa/bipa-cartography._
+> https://github.com/blavatnik-index/bipa2024_cartography._
