@@ -21,7 +21,13 @@ layers <- c(
 )
 
 file_types <- c(
-  ".README.html", ".VERSION.txt", ".cpg", ".dbf", ".prj", ".shp", ".shx"
+  ".README.html",
+  ".VERSION.txt",
+  ".cpg",
+  ".dbf",
+  ".prj",
+  ".shp",
+  ".shx"
 )
 
 if (!dir.exists(file.path("cartography", "src"))) {
@@ -29,7 +35,6 @@ if (!dir.exists(file.path("cartography", "src"))) {
 }
 
 for (l in layers) {
-
   if (!dir.exists(file.path("cartography", "src", l))) {
     dir.create(file.path("cartography", "src", l))
   }
@@ -46,10 +51,6 @@ for (l in layers) {
     )
     .logger(paste("DOWNLOADED", dest_file), .log)
     if (tools::file_ext(dest_file) == "shp") {
-
     }
-
   }
-
 }
-

@@ -95,10 +95,13 @@ all_entities_out <- all_entities_raw |>
   ) |>
   lwgeom::st_force_polygon_cw() |>
   dplyr::left_join(
-    entity_codes, by = "cc_iso3c"
+    entity_codes,
+    by = "cc_iso3c"
   ) |>
   dplyr::select(
-    cc_iso3c, cc_name_long, cc_name_short
+    cc_iso3c,
+    cc_name_long,
+    cc_name_short
   )
 
 .logger("simplification processing complete", .log)
@@ -115,4 +118,3 @@ sf::st_write(
 )
 
 .logger("WRITE cartography/out/world_lowres.geojson", .log)
-

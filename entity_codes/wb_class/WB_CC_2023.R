@@ -1,7 +1,7 @@
-
 # read income classifications
 wbcc_raw <- readxl::read_excel(
-  "entity_codes/wb_class/CLASS.xlsx", sheet = "List of economies"
+  "entity_codes/wb_class/CLASS.xlsx",
+  sheet = "List of economies"
 )
 
 # process income classifications
@@ -15,11 +15,13 @@ wbcc_proc <- wbcc_raw |>
     cc_iso3c = dplyr::if_else(code == "XKX", "XKK", code),
     income_group_num = dplyr::case_match(
       income_group,
-      "High income" ~ 4, "Upper middle income" ~ 3,
-      "Lower middle income" ~ 2, "Low income" ~ 1
+      "High income" ~ 4,
+      "Upper middle income" ~ 3,
+      "Lower middle income" ~ 2,
+      "Low income" ~ 1
     ),
     ref_year = 2023
-  )|>
+  ) |>
   dplyr::select(cc_iso3c, ref_year, income_group, income_group_num) |>
   # remove channel islands group and replace with individual rows for each
   # geographic entry

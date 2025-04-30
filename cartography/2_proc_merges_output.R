@@ -13,7 +13,8 @@ output_merges <- readr::read_csv("cartography/proc/output_and_merges.csv")
 # NE 1:10m subunits geometry
 ne10_subunits <- sf::read_sf(
   file.path(
-    "cartography", "src",
+    "cartography",
+    "src",
     "ne_10m_admin_0_map_subunits",
     "ne_10m_admin_0_map_subunits.shp"
   )
@@ -22,7 +23,8 @@ ne10_subunits <- sf::read_sf(
 # NE 1:10m disputed areas geometry
 ne10_disputed <- sf::read_sf(
   file.path(
-    "cartography", "src",
+    "cartography",
+    "src",
     "ne_10m_admin_0_disputed_areas",
     "ne_10m_admin_0_disputed_areas.shp"
   )
@@ -85,8 +87,16 @@ esh_out <- tibble::tibble(
   subunit = "Western Sahara"
 ) |>
   sf::st_set_geometry(esh_geo) |>
-  dplyr::select(su_a3, geometry, output, output_note, entity, entity_note,
-                merge_group, subunit)
+  dplyr::select(
+    su_a3,
+    geometry,
+    output,
+    output_note,
+    entity,
+    entity_note,
+    merge_group,
+    subunit
+  )
 
 # get morocco
 mar_raw <- ne10_subunits |>
@@ -96,7 +106,8 @@ mar_raw <- ne10_subunits |>
 mar_xws_polys <- sf::st_difference(
   x = mar_raw$geometry,
   y = esh_out$geometry
-) |> sf::st_collection_extract("POLYGON") |>
+) |>
+  sf::st_collection_extract("POLYGON") |>
   sf::st_cast(to = "POLYGON")
 
 # eliminate artefacts by getting northernmost of the morocco polygons
@@ -109,7 +120,7 @@ mar_xws_geo <- tibble::tibble(id = 1:length(mar_xws_polys)) |>
     ),
     ymax = purrr::map_dbl(
       .x = bbox,
-      .f = ~.x$ymax
+      .f = ~ .x$ymax
     )
   ) |>
   dplyr::filter(ymax == max(ymax)) |>
@@ -127,8 +138,16 @@ mar_out <- tibble::tibble(
   subunit = "Morocco"
 ) |>
   sf::st_set_geometry(mar_xws_geo) |>
-  dplyr::select(su_a3, geometry, output, output_note, entity, entity_note,
-                merge_group, subunit)
+  dplyr::select(
+    su_a3,
+    geometry,
+    output,
+    output_note,
+    entity,
+    entity_note,
+    merge_group,
+    subunit
+  )
 
 
 # split asian russia ------------------------------------------------------
@@ -162,7 +181,7 @@ russia_asia_df <- tibble::tibble(id = 1:length(russia_polys)) |>
     ),
     xmax = purrr::map_dbl(
       .x = bbox,
-      .f = ~.x$xmax
+      .f = ~ .x$xmax
     ),
     west = xmax < 0
   ) |>
@@ -185,8 +204,16 @@ russia_asia_df <- tibble::tibble(id = 1:length(russia_polys)) |>
     su_a3 = dplyr::if_else(west, "RUW", "RUA"),
     subunit = "Russia"
   ) |>
-  dplyr::select(su_a3, geometry, output, output_note, entity, entity_note,
-                merge_group, subunit)
+  dplyr::select(
+    su_a3,
+    geometry,
+    output,
+    output_note,
+    entity,
+    entity_note,
+    merge_group,
+    subunit
+  )
 
 # reapply geometry (row-wise mutation causes tibble to drop sf class)
 russia_asia_df <- russia_asia_df |>
@@ -239,17 +266,27 @@ merge_out <- merge_raw |>
     su_a3 = entity,
     subunit = NA_character_
   ) |>
-  dplyr::select(su_a3, geometry, output, output_note, entity, entity_note,
-                merge_group, subunit)
+  dplyr::select(
+    su_a3,
+    geometry,
+    output,
+    output_note,
+    entity,
+    entity_note,
+    merge_group,
+    subunit
+  )
 
 # output entities ---------------------------------------------------------
 
 # units to output without merging
 singular_units <- output_merges |>
   dplyr::filter(
-    output == "Yes" & entity != "MAR" & entity != "ESH" &
+    output == "Yes" &
+      entity != "MAR" &
+      entity != "ESH" &
       ((output_note != "Small island(s) entity" & output_note != "Microstate") |
-         is.na(output_note)) &
+        is.na(output_note)) &
       is.na(merge_group)
   )
 
