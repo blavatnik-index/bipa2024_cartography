@@ -38,6 +38,32 @@ outputs, this is derived from the ISO 3166-1 alpha-3 standard, it includes:
 - 56 codes officially assigned under the ISO 3166-1 alpha-3 standard
 - 6 user assigned codes
 
+### Column definition
+
+The file `entity_codes.csv` has 8 columns:
+
+- **`cc_iso3c`**: a three-letter code based on the ISO 3166-1 alpha-3 standard
+- **`cc_name_long`**: a long form/formal name for the entity, largely based on
+  names in the ISO 3166-1 alpha-3 standard or the Unicode CDLR
+- **`cc_name_short`**: a short form name for the entity, adapted from the long
+  form name
+- **`un_m49`**: the numeric code assigned to the entity in the UN M49 standard
+- **`unicode_flag`**: the flag emoji associated with the entity in the unicode
+  standard
+- **`cc_status`**: a column indicating the status of the entity either:
+  - `UN member` to indicate the entity is a UN member country
+  - `Other ISO 3166-1 assigned or reserved entity` to indicate the entity is
+    defined in the ISO 3166-1 standard
+  - `User assigned code` to indicate the entity has been explictly defined for
+    the purposed of the Blavatnik Index
+- **`cc_ascii`**: a representation of the `cc_name_short` using only ASCII
+  characters (i.e. not using accents or diacritics)
+- ***`cc_grep`**: a modified form of the `cc_ascii` column that can aid in
+  filtering it removes punctuation and in some cases provides alternative names,
+  acronyms or further labels to aid disambigulation, e.g. to allow users to
+  filter for "usa" instead of "united states" or "congo brazzaville" for the
+  republic of the congo
+
 ## Adaptations to the ISO 3166-1 standard
 
 Due to the varied coverage of countries, territories and other geographic
